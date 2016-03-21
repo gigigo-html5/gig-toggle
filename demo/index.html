@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="fragment" content="!">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Gig Component Toggle Button</title>
+    <link rel="import" href="/src/gig-toggle.html">
+
+    <style is="custom-style">
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        .field {
+            padding: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="field">
+        <label>Toggle Button Normal</label>
+        <gig-toggle name="toggle"></gig-toggle>
+    </div>
+
+    <div class="field">
+        <label>Toggle Button Normal with Label</label>
+        <gig-toggle name="toggle" label="Activate Toggle"></gig-toggle>
+    </div>
+
+    <div class="field">
+        <label>Toggle Button Checked</label>
+        <gig-toggle name="toggle" checked></gig-toggle>
+    </div>
+
+    <div class="field">
+        <label>Toggle Button Disabled</label>
+        <gig-toggle name="toggle" disabled></gig-toggle>
+    </div>
+
+    <div class="field">
+        <label>Toggle Button Disabled and Checked</label>
+        <gig-toggle name="toggle" disabled checked></gig-toggle>
+    </div>
+
+    <div class="field">
+        <label>Toggle Button Disabled and Checked</label>
+        <gig-toggle name="toggle" required="true" error-message="Campo Obligatorio" error></gig-toggle>
+    </div>
+
+</body>
+
+</html>
