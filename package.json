@@ -11,7 +11,7 @@
     "check-npm-deps": "ncu",
     "update-deps": "ncu -u && ncu -m bower -u",
     "serve": "ws -p 3001",
-    "lint-polymer": "polylint --root src gig-repeater-style.html gig-repeater.html gig-repeat-html.html",
+    "lint-polymer": "polylint --root src gig-toggle.html gig-toggle-style.html",
     "release:patch": "gulp release && npm version patch --no-git-tag-version && git add -A && git commit -m \"chore(npm): update npm version\" && bower version patch -m \"chore(release): Bump to %s\" && git push --tags",
     "release:minor": "gulp release && npm version minor --no-git-tag-version && git add -A && git commit -m \"chore(npm): update npm version\" && bower version minor -m \"chore(release): Bump to %s\" && git push --tags",
     "release:major": "gulp release && npm version major --no-git-tag-version && git add -A && git commit -m \"chore(npm): update npm version\" && bower version major -m \"chore(release): Bump to %s\" && git push --tags"
