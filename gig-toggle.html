@@ -1,6 +1,6 @@
 <!--
  Webcomponents to generate toggle button
- @version v0.0.1 - 2016-03-21
+ @version v0.0.1 - 2016-08-02
  @link https://github.com/gigigo-html5/gig-toggle
  @author Pedro José Peña Jerez <pedro.jose@gigigo.com>
  @license MIT License, http://www.opensource.org/licenses/MIT
@@ -8,188 +8,78 @@
  -->
 <link rel="import" href="../polymer/polymer.html">
 
+<link rel="import" href="gig-toggle-style.html">
+
 <dom-module id="gig-toggle">
-    <style>
+  <template>
+    <style include="gig-toggle-style"></style>
 
-        :host {
-            display: inline-block;
-            position: relative;
-            box-sizing: border-box;
-            background: transparent !important;
-            text-align: center;
-            font: inherit;
-            outline-width: 0;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            -webkit-user-select: none;
-            user-select: none;
-            cursor: pointer;
-            z-index: 0;
-            margin: 0;
-            padding: 0 !important;
-            font-family: Roboto, sans-serif;
-            @apply(--gig-toggle);
-        }
-
-        * {
-            box-sizing: border-box;
-            outline:none;
-        }
-
-        .toggle {
-            position: relative;
-            width: 45px;
-            height: 28px;
-            cursor: pointer;
-            vertical-align: middle;
-            border: 1px solid #e4eaec;
-            border-radius: 20px;
-            background-clip: content-box;
-            -webkit-background-clip: content-box;
-            font-size: 14px;
-            display: inline-block;
-            float: left;
-        }
-
-        .toggle.disabled {
-            opacity: 0.5;
-        }
-
-        .toggle.active {
-            box-shadow: rgb(98, 168, 234) 0px 0px 0px 13px inset;
-            border-color: rgb(98, 168, 234);
-            transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;
-            -webkit-transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;
-            -moz-transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;
-            background-color: rgb(98, 168, 234)
-        }
-
-        .toggle.no-active {
-            box-shadow: rgb(223, 223, 223) 0px 0px 0px 0px inset;
-            border-color: rgb(223, 223, 223);
-            transition: border 0.4s, box-shadow 0.4s;
-            -webkit-transition: border 0.4s, box-shadow 0.4s;
-            -moz-transition: border 0.4s, box-shadow 0.4s;
-            background-color: rgb(255, 255, 255);
-
-        }
-
-        .toggle small {
-            position: absolute;
-            top: 0;
-            width: 24px;
-            height: 24px;
-            background: white;
-            border-radius: 100%;
-            box-shadow: 0 1px 3px rgba(0,0,0,.4);
-            font-size: 85%;
-        }
-
-        .toggle.active small {
-            transition: background-color 0.4s, left 0.2s;
-            -webkit-transition: background-color 0.4s, left 0.2s;
-            -moz-transition: background-color 0.4s, left 0.2s;
-            left: 21px;
-            background-color: rgb(255, 255, 255);
-        }
-
-        .toggle.no-active small {
-            left: 0px;
-            transition: background-color 0.4s, left 0.2s;
-            -webkit-transition: background-color 0.4s, left 0.2s;
-            -moz-transition: background-color 0.4s, left 0.2s;
-        }
-
-        input[type="checkbox"] {
-            display: none;
-        }
-
-        label {
-            padding-left: 5px;
-            top: 2px;
-            position: relative;
-            display: inline-block;
-            font-size: 12px;
-        }
-
-        p.error {
-            clear: both;
-            padding: 5px 0;
-            font-size: 85%;
-            margin: 0;
-            color: var(--input-color-error, #f96868);
-        }
-
-    </style>
-
-    <template>
-
-        <div class$="toggle {{checkToggle(checked)}} {{checkDisabled(disabled)}} {{checkSize(size)}}" on-click="toggleHandler"><small></small></div>
-        <template is="dom-if" if="{{label}}">
-            <label>[[label]]</label>
-        </template>
-
-        <template is="dom-if" if="{{error}}">
-            <p class="error">[[errorMessage]]</p>
-        </template>
-
-        <input type="checkbox"
-            name$="[[name]]"
-            checked$="{{checked}}"
-            required$="[[required]]"
-            disabled$="[[disabled]]"
-            value$="[[value]]">
-
+    <div class$="toggle {{checkToggle(checked)}} {{checkDisabled(disabled)}} {{checkSize(size)}}"
+         on-click="toggleHandler">
+      <small></small>
+    </div>
+    <template is="dom-if" if="{{label}}">
+      <label>[[label]]</label>
     </template>
 
-    <script>
-        (function() {
+    <template is="dom-if" if="{{error}}">
+      <p class="error">[[errorMessage]]</p>
+    </template>
 
-            var self;
+    <input type="checkbox"
+           name$="[[name]]"
+           checked$="{{checked}}"
+           required$="[[required]]"
+           disabled$="[[disabled]]"
+           value$="[[value]]">
+  </template>
 
-            Polymer({
-                is: 'gig-toggle',
-                toggleHandler: function() {
-                    if (!this.disabled)
-                    this.checked = !this.checked;
+  <script>
+    (function() {
+      var self;
+      Polymer({
+        is: 'gig-toggle',
+        toggleHandler: function() {
+          if (!this.disabled)
+            this.checked = !this.checked;
 
-                    if (this.error && this.required) {
-                        this.error = !this.checked;
-                    }
+          if (this.error && this.required) {
+            this.error = !this.checked;
+          }
 
-                    this.fire('change', {checked: this.checked})
-                },
-                checkToggle: function() {
-                    if (this.checked) {
-                        return 'active';
-                    } else {
-                        return 'no-active'
-                    }
-                },
-                checkDisabled: function() {
-                    if (this.disabled) {
-                        return 'disabled';
-                    }
-                },
-                properties: {
-                    checked: {
-                        type: Boolean,
-                        notify: true,
-                        value: false
-                    },
-                    disabled: {
-                        type: Boolean,
-                        notify: true,
-                        value: false
-                    },
-                    error: {
-                        type: Boolean,
-                        notify: true,
-                        value: false
-                    }
-                }
-            })
-        })();
-    </script>
+          this.fire('change', {checked: this.checked})
+        },
+        checkToggle: function() {
+          if (this.checked) {
+            return 'active';
+          } else {
+            return 'no-active'
+          }
+        },
+        checkDisabled: function() {
+          if (this.disabled) {
+            return 'disabled';
+          }
+        },
+        properties: {
+          checked: {
+            type: Boolean,
+            notify: true,
+            value: false
+          },
+          disabled: {
+            type: Boolean,
+            notify: true,
+            value: false
+          },
+          error: {
+            type: Boolean,
+            notify: true,
+            value: false
+          }
+        }
+      })
+    })();
+  </script>
 
 </dom-module>
